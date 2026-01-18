@@ -1,0 +1,35 @@
+services:
+  db:
+    image: postgres:16.2
+    environment:
+      POSTGRES_DB: voiceai
+      POSTGRES_USER: voiceai
+      POSTGRES_PASSWORD: voiceai_pw
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U voiceai -d voiceai"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    # Only enable this if you want to connect from your host (pgAdmin, etc.)
+    # ports:
+    #   - "5432:5432"
+
+  api:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgres://voiceai:voiceai_pw@db:5432/voiceai
+    command: npm run dev
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:

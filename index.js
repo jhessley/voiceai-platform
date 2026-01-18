@@ -16,7 +16,7 @@ const session = require('express-session');
 const OUTBOUND_FROM = process.env.OUTBOUND_FROM || process.env.TWILIO_NUMBER;
 const PUBLIC_HOSTNAME = process.env.PUBLIC_HOSTNAME;
 const realtimeRoutes = require("./routes/realtime.js");
-const { acceptPhoneCall, buildSessionParts, startControlledCall } = require("./realtime_controller");
+const { acceptPhoneCall, buildSessionParts, startControlledCall } = require("./realtime_controller.js");
 
 
 // DB + Novel factory (NEW)
@@ -471,9 +471,10 @@ app.use((req, res, next) => {
   res.status(404).send('404 Not Founded');
 });
 
-app.listen(port, () => {
-  console.log(`Realtime app listening at http://localhost:${port}`);
+app.listen(process.env.PORT || 3000, "0.0.0.0", () => {
+  console.log("Server running");
 });
+
 
 
 // #endregion

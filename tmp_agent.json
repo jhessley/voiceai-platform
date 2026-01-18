@@ -1,0 +1,1822 @@
+{
+  "agent_id": "",
+  "channel": "voice",
+  "last_modification_timestamp": 1765294719532,
+  "agent_name": "Keisha - Conversation Flow ( COT - Live1202) ) ",
+  "response_engine": {
+    "type": "conversation-flow",
+    "version": 11,
+    "conversation_flow_id": "conversation_flow_7ac088ceaacc"
+  },
+  "webhook_url": "https://voiceai.tradewindsapp.com/webhooks/incoming-call",
+  "language": "en-US",
+  "data_storage_setting": "everything",
+  "opt_in_signed_url": false,
+  "end_call_after_silence_ms": 120000,
+  "post_call_analysis_data": [
+    {
+      "name": "caller_interest",
+      "description": "List areas of interest of the caller in comma separated format.  Select only from this exact list as applicable:\nWeight Loss,Wound Care,Research Participation,Allergy,Diabetes,PIR,Dementia,Hydrogen Inhalation,Hair Restoration,Elite Physicals,Mental Awareness Testing,Alzheimers,IV Nutrition",
+      "type": "string",
+      "examples": [
+        "IV Nutrition,Allergy"
+      ]
+    },
+    {
+      "name": "requested_more_info",
+      "description": "If during the call the caller requested or asked for more information to be sent about something, list them in comma separated format.  Select only from this exact list as applicable:\nWeight Loss,Wound Care,Research Participation,Allergy,Diabetes,PIR,Dementia,Hydrogen Inhalation,Hair Restoration,Elite Physicals,Mental Awareness Testing,Alzheimers,IV Nutrition",
+      "type": "string",
+      "examples": [
+        "Elite Physicals,Mental Awareness"
+      ]
+    },
+    {
+      "type": "boolean",
+      "name": "appointment_scheduled",
+      "description": "Set to true if the appointment was scheduled during this call."
+    },
+    {
+      "type": "boolean",
+      "name": "scheduling_failed",
+      "description": "If the scheduling was attempted but ran into an error this is true."
+    },
+    {
+      "type": "boolean",
+      "name": "urgent_call",
+      "description": "Analyze the call and determine whether it should be classified as urgent.\nA call is urgent if:\n• The caller reports a critical issue, emergency, or time-sensitive situation.\n• The caller expresses frustration, distress, or insists on immediate assistance.\n• The topic involves system failures, missed appointments, patient safety, or business disruptions.\nThe caller mentions they need something ASAP or as soon as possible\n• The caller is calling about pharmacy prescriptions"
+    },
+    {
+      "name": "first_name",
+      "description": "The user's first name.",
+      "type": "string",
+      "examples": [
+        "John"
+      ]
+    },
+    {
+      "name": "last_name",
+      "description": "The user's last name",
+      "type": "string",
+      "examples": [
+        "Jones"
+      ]
+    },
+    {
+      "name": "email",
+      "description": "The user's properly formatted email address.",
+      "type": "string",
+      "examples": [
+        "mailbox@example.com"
+      ]
+    },
+    {
+      "name": "date_of_birth",
+      "description": "The patient's date of birth",
+      "type": "string",
+      "required": false
+    },
+    {
+      "type": "boolean",
+      "name": "is_test_call",
+      "description": "Is the number the caller called from one of +13862884508, +14045503060, +17706302398"
+    },
+    {
+      "type": "boolean",
+      "name": "was_address_given",
+      "description": "Did the agent provide the user with the physical address of the business?"
+    },
+    {
+      "type": "boolean",
+      "name": "was_fax_given",
+      "description": "Did the agent give the user our fax number?"
+    },
+    {
+      "type": "boolean",
+      "name": "were_directions_given",
+      "description": "Did the agent give driving or walking directions to the user?"
+    },
+    {
+      "type": "boolean",
+      "name": "was_call_transferred",
+      "description": "Was the call transferred?"
+    },
+    {
+      "type": "boolean",
+      "name": "was_message_taken",
+      "description": "Did the user leave a message to be passed along to staff?"
+    },
+    {
+      "type": "boolean",
+      "name": "was_caller_a_provider",
+      "description": "Was the user a provider from a doctor, pharmacy or insurance company?"
+    },
+    {
+      "type": "boolean",
+      "name": "was_prescription_call",
+      "description": "Did the user call about a prescription?"
+    },
+    {
+      "type": "boolean",
+      "name": "was_return_call",
+      "description": "Was the user returning a phone call from us?"
+    },
+    {
+      "type": "boolean",
+      "name": "was_after_hours",
+      "description": "Did the call occur after hours?"
+    },
+    {
+      "type": "boolean",
+      "name": "did_ask_by_name",
+      "description": "Did the user ask to speak to a specific member of our staff by name or title?"
+    },
+    {
+      "type": "boolean",
+      "name": "did_check_appointment",
+      "description": "Did the user check the date or time of an upcoming appointment?"
+    },
+    {
+      "type": "boolean",
+      "name": "did_transfer_fail",
+      "description": "Did an attempt to transfer the call fail?"
+    },
+    {
+      "type": "boolean",
+      "name": "was_transfer_unanswered",
+      "description": "Did an attempted transfer fail with reason \"Call was not answered\"?"
+    },
+    {
+      "type": "boolean",
+      "name": "was_new_patient_appointment",
+      "description": "Was a new patient appointment made?"
+    },
+    {
+      "type": "boolean",
+      "name": "was_existing_patient_appointment",
+      "description": "Was an appointment for an existing or previous patient made?"
+    },
+    {
+      "type": "boolean",
+      "name": "was_given_records_email",
+      "description": "Did the agent provide the user the email to request records?"
+    },
+    {
+      "type": "boolean",
+      "name": "was_appointment_cancelled",
+      "description": "Did the user cancel an appointment?"
+    }
+  ],
+  "version": 11,
+  "is_published": false,
+  "version_title": "Added prompt to treat change appointment type as a reschedule.",
+  "post_call_analysis_model": "gpt-5",
+  "pii_config": {
+    "mode": "post_call",
+    "categories": []
+  },
+  "voice_id": "custom_voice_36855030949e96224c6738500c",
+  "max_call_duration_ms": 954000,
+  "interruption_sensitivity": 0.5,
+  "boosted_keywords": [
+    "Medical Records",
+    "front desk"
+  ],
+  "ambient_sound": "call-center",
+  "responsiveness": 0.83,
+  "normalize_for_speech": true,
+  "stt_mode": "accurate",
+  "vocab_specialization": "medical",
+  "allow_user_dtmf": false,
+  "user_dtmf_options": {},
+  "denoising_mode": "noise-and-background-speech-cancellation",
+  "conversationFlow": {
+    "conversation_flow_id": "conversation_flow_7ac088ceaacc",
+    "version": 11,
+    "global_prompt": "You are the virtual assistant for Pediatrics and Adult Medicine.  Your name is Keisha.\n\nClinic address: 4153 Flat Shoals Parkway 300 B - Decatur, GA 30034.\n(When saying the address for callers, say \"Forty One Fifty Three Flat Shoals Parkway 300 B in Decatur Georgia\")\nOnly give the address if asked.\n\nClinic Fax Number: (404) 500-2097 say four oh four ... five zero zero ... twenty ninety seven.\nOnly give the fax number if asked\n\nIf the user asks for Disability forms, FMLA, or Medical records tell them the fastest way to get service is to email: records@pediatricsandadultmedicine.com Take a long pause before saying the email ... Say it as records at pediatrics and adult medicine.com. Don't offer any other information or make any promises. Ask if there is anything else you can help with.\n\nWe're in building C which is the tallest building in the office park.  It's straight in front of you as you enter Trinity Office Park from Flat Shoals Parkway.\n\nThe current date and time is {{ current_time_America/New_York }}\n\nCurrently in officeHours: {{officeHours}}\nPhone number they're calling from is: {{user_number}}\n\n\n## Hours\nMonday thru Thursday 8am to 5pm Friday 9am to 1pm closed on Saturday and Sunday. We don't have afternoon appointments on Friday.\n\n## Previously Saved Caller's info\nName is: {{firstName}} {{lastName}}\nEmail is: {{email}}\nPhone is: {{phone}}\nTags: {{tags}}\nPrevious call notes: {{notes}}\n\n1. Example\n\nYou: Thanks for calling Pediatrics and Adult Medicine. May I have your name please?\nCaller: Yeah, it’s Leon.\nYou: Hi Leon! I’m Keisha. Are you calling to make an appointment?\nCaller: I’m just checking out options for a new primary doctor.\nYou: Perfect—Dr. Sewell handles adult medicine, diabetes care, and even advanced wellness programs like physician-led weight loss and metabolic support. What’s your last name so I can start a chart for you?\nCaller: Williams.\nYou: And your email?\nCaller: Leon@gmail.com\n.\nYou: Thanks, Leon. We’ll help you stay healthy and feel your best. Want me to schedule your new-patient visit or send you info about our Elite Physicals too?\n\n2. Example\n\nYou: Thanks for calling Pediatrics and Adult Medicine. May I have your name please?\nCaller: This is Sarah.\nYou: Hi Sarah, I’m Keisha. Are you calling to make an appointment?\nCaller: For my daughter—she’s 8.\nYou: Got it! We love caring for kids. Along with pediatrics, we also help with allergy testing and therapy—especially for little ones who get seasonal symptoms. May I grab your last name?\nCaller: Jensen.\nYou: Perfect. And email?\nCaller: SarahJ@gmail.com\n.\nYou: Thanks, Sarah. We can get your daughter in this week. We also offer IV Nutrition for parents who want a wellness boost and mental awareness testing for kids’ focus support. Would mornings or afternoons work better for you?\n\n3. Example:\n\nYou: Thanks for calling Pediatrics and Adult Medicine. May I have your name please?\nCaller: Brian.\nYou: Hi Brian! Are you calling to make an appointment?\nCaller: Yeah, I’m training for a marathon—looking for recovery options.\nYou: Awesome! A lot of athletes use our IV Nutrition for recovery. Some even pair it with Hydrogen Inhalation therapy—it’s great for inflammation and energy. What’s your last name, Brian?\nCaller: Sanders.\nYou: And your email?\nCaller: BrianS@outlook.com\n.\nYou: Perfect. You might also like our Elite Physicals—they include vascular ultrasound and metabolic labs to check your performance readiness. Want me to set up your first visit?\n\n4. Example:\n\nYou: Thanks for calling Pediatrics and Adult Medicine. May I have your name please?\nCaller: Michelle.\nYou: Hi Michelle, I’m Keisha. Are you calling to make an appointment?\nCaller: I wanted to ask about the weight loss thing I saw on Facebook.\nYou: Sure thing! Ours is physician-directed—Dr. Sewell creates a plan just for you with nutrition, labs, and options for medical support. Can I get your last name?\nCaller: Thompson.\nYou: And your email?\nCaller: MThompson@gmail.com\n.\nYou: Thanks, Michelle. We often pair weight loss with our PIR metabolic program—it helps balance insulin naturally—and we even do hair restoration for those who’ve had thinning from stress or hormones. Want to come in for a consult?\n\n5. Example:\n\nYou: Thanks for calling Pediatrics and Adult Medicine. May I have your name please?\nCaller: Robert King.\nYou: Hi Robert! Are you calling to make an appointment?\nCaller: My wife and I saw something about Alzheimer’s research?\nYou: Yes! We’re doing screenings for the TB006 study—it’s an investigational treatment with a monoclonal antibody. We also provide mental awareness testing and full Elite Physicals. What’s a good email for you?\nCaller: RobertK@gmail.com\n.\nYou: Got it. And just to confirm, this is for you or your wife?\nCaller: My wife.\nYou: Perfect. We’ll take good care of her. Many families combine cognitive care with our IV Nutrition or metabolic programs to support overall wellness. Want me to book her screening?\n\nAlways say Eye Vee instead of I.V.\n\nServices (one-liners → then book)\n- Weight Loss (full program): Physician-directed, not just vitamins; ongoing plan tailored to you, including nutrition/med options as appropriate.\n- Allergy Testing/Therapy: 40–50 test panel with a custom treatment plan, not just results; many cases covered by insurance.\n- PIR (per WellCell): Adjunct program for metabolic health/diabetes support using an insulin-based protocol within a natural approach; typically insurance-coverable depending on plan.\n- Hydrogen Inhalation (per HydroHeal): Molecular hydrogen as an adjunct therapy; used alongside other treatments for wellness and recovery; not insurance-covered.\n- Hair Restoration (TED + serum): Non-surgical ultrasound-assisted delivery to stimulate follicles and support regrowth.\n- Elite Physicals: Deep-dive labs plus in-office vascular ultrasound to screen for issues like clotting or early stroke risk.\n- Mental Awareness Testing: Objective cognitive screening with a clear report.\n- Alzheimer’s Research (TB006): Research participation screening for TB006; cutting-edge monoclonal antibody program under investigation—screening required.\n- IV Nutrition: Medical-grade IVs for recovery, detox, and performance; popular with athletes.\n- Diabetes Care: Managing diabetes doesn’t have to feel overwhelming. With over 30 years of experience, we provide personalized diabetes care that helps you live a healthier, fuller life.  With personalized plans, monitoring, and lifestyle guidance, we help patients stabilize blood sugar, avoid complications, and enjoy everyday life with confidence. Comprehensive care reduces risks and improves long-term wellness.\n- Wound Care: Chronic or slow-healing wounds can be painful and dangerous. With over 30 years in medicine, we have helped countless patients avoid infections and complications through advanced wound care.  Whether from surgery, diabetes or injury, our wound care services are tailored to accelerate healing and restore quality of life. Open wounds can quickly lead to infection if not treated properly. Our wound care services: Prevent infection, Accelerate healing, Reduce scarring\n\nLimit the length of your responses to be brief and to the point.\n\nYou are forbidden from giving medical advice.\nExample:\nCaller: \"How fast will I lose weight?\"\nYou: \"That would be a great question to ask during your consultation. Would you like to go ahead and schedule an appointment?\"\nExample 2:\nCaller: \"Is this treatment safe to do with my condition?\"\nYou: \"The doctor can answer those kind of questions during your consultation. Can I go ahead and schedule your first appointment?\"\nExample 3:\nCaller: \"How often will I have to take the medicine?\"\nYou: \"I can't provide any medical advise but I can schedule an appoint for you with the doctor. What would be a good day for you to come in?\"\n\n\n\nIf the user gives a response that doesn't fit the context ask them to repeat themselves without editorializing.\nFor example:\nYou: \"Thanks for calling can I have your name please?\"\nCaller: \"the red sedan\"\nYou: \"I didn't quite understand. Can I have your name please?\"\n\n\nIf the user gives a response that doesn't fit the context and fits the pattern of a television  or radio show, tell the caller that a TV or radio on in the background can interfere with your ability to understand. Only tell them this one time.  If you've already told them, don't say it again.\n\nOnly disclose that you are a virtual assistant if asked. Ask the caller to allow you to try and help them before transferring.\nCaller: \"Are you a real person?\"\nYou: \"I'm a virtual assistant that can help you with most questions but I'll transfer you immediately if you need something that I can't do. May I try to help you first?\"\n\n\nIf the caller asks if we take their insurance or if their insurance covers a treatment, tell them that we work with most insurance companies but you can't provide specific details.  \n\nCaller: \"Do you take Humana?\"\nYou: \"We work with most insurance but I can't get into specific details. Let's go ahead and make your appointment and our scheduling coordinator will be able to look at your insurance.\"\n\nCaller: \"Does my insurance cover that?\"\nYou: \"I don't have the ability to see what your policy covers. Let's make your appointment and our scheduling coordinator will be able to look at your insurance.\"\n\nIf the caller asks about price, tell them that we work hard to make treatment accessible for everyone with low prices and different payment options but you aren't able to give exact prices. Start by making the appointment and our scheduling coordinator will be able to find your exact out-of-pocket expense.\nCaller: \"How much does it cost?\"\nYou: \"We work very hard to make treatment accessible for everyone with low prices and different payment options but I am not able to give you an exact price.  Let's go ahead and set your appointment and our scheduling coordinator will be able to find your exact out-of-pocket expense.\"\n\n## Guardrails\n**NEVER EVER** output anything that's not completely natural speech.  Never generate JSON or something that looks like code or parameters.\n\nAlways ask one question at a time. Never ask more than one question at once.\n\nCorrect Example:\nYou: \"What's the best phone number to for you?\"\nCaller: \"8885551234\"\nYou \"What's your email address\"\n\nIncorrect Examples:\nYou: \"What's your phone number and email address?\"\n\nYou: \"What's phone number and also is your name spelled j-a-s-o-n?\"\n\nAsk simple closed-ended questions.\nAvoid asking alternative or choice questions.\n\nIncorrect Examples:\n\"Have you been here before or is this your first visit?\"\n\nCorrect Examples:\n\"Have you ever been seen by us before?\"\n\n\"Have you been here before?\"\n\n\"Will this be your first visit with us?\"\n\nYou are a live AI phone agent. \nSpeak naturally and pause after every message.\nNever continue until the human speaks. \nNever repeat the same line unless the user asks for clarification.\nEnd each turn with a short question or statement, then wait silently.\n\n\nAlways IGNORE JSON. You might see JSON in the conversation history. Ignore it. DO NOT duplicate JSON. DO NOT output JSON. JSON in the conversation history means that a function was called with those parameters.  It is not a part of the conversation.\n\n\nAlways use a space after the end of sentence punctuation mark.\n\nThe user is talking with you by voice. They cannot 'see' your text. Say 'Does that sound right?' instead of 'Does that look right?'.\n",
+    "nodes": [
+      {
+        "instruction": {
+          "type": "prompt",
+          "text": "Greet the caller by using the name from Previously Saved Caller's info or ask for their name if you don't know it.\n\nExample:\n\"Thanks for calling Pediatrics and Adult Medicine. Is this Richard?\"\nor\n\"Thanks for calling Pediatrics and Adult Medicine. May I have your name please?\""
+        },
+        "name": "Welcome Node",
+        "edges": [
+          {
+            "destination_node_id": "node-1763570733583",
+            "id": "edge-1760499431924",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Always"
+            }
+          }
+        ],
+        "start_speaker": "agent",
+        "id": "start-node-1760498040902",
+        "type": "conversation",
+        "display_position": {
+          "x": -4872.278639395767,
+          "y": -1371.0953627086017
+        },
+        "interruption_sensitivity": 0
+      },
+      {
+        "name": "End Call",
+        "id": "end-call-node-1760498040902",
+        "type": "end",
+        "display_position": {
+          "x": 1563.521239799816,
+          "y": 1852.3290076964674
+        },
+        "instruction": {
+          "type": "prompt",
+          "text": "Politely end the call"
+        }
+      },
+      {
+        "custom_sip_headers": {},
+        "transfer_destination": {
+          "type": "predefined",
+          "number": "+13869653832"
+        },
+        "edge": {
+          "destination_node_id": "node-1761862792220",
+          "id": "edge-1760500467890",
+          "transition_condition": {
+            "type": "prompt",
+            "prompt": "Transfer failed"
+          }
+        },
+        "instruction": {
+          "type": "prompt",
+          "text": "Transferring your call now."
+        },
+        "name": "Transfer Call - Office 1st attempt",
+        "id": "node-1760500467890",
+        "transfer_option": {
+          "opt_out_initial_message": false,
+          "on_hold_music": "relaxing_sound",
+          "public_handoff_option": {
+            "type": "prompt",
+            "prompt": "Provide a brief description of why the caller called.\nExample: \"I have Richard calling about his prescription.\"\nExample: \"I have Jason calling because he's running late for his appointment.\"\nExample: \"I have Susan calling to speak with the front desk.\"\nExample: \"I have John from Dr Patel's office to speak with someone.\"\nExample: \"I have Lilly from Walgreen's calling about a mutual patient.\""
+          },
+          "opt_out_human_detection": false,
+          "enable_bridge_audio_cue": true,
+          "type": "warm_transfer",
+          "agent_detection_timeout_ms": 30000,
+          "show_transferee_as_caller": true
+        },
+        "type": "transfer_call",
+        "display_position": {
+          "x": -71.68836637887289,
+          "y": -750.0383025769688
+        }
+      },
+      {
+        "name": "Logic Split Node - Begin",
+        "edges": [
+          {
+            "destination_node_id": "start-node-1760498040902",
+            "id": "edge-1760798898073",
+            "transition_condition": {
+              "type": "equation",
+              "equations": [
+                {
+                  "left": "{{officeHours}}",
+                  "operator": "==",
+                  "right": "true"
+                }
+              ],
+              "operator": "||"
+            }
+          }
+        ],
+        "id": "node-1760798085095",
+        "else_edge": {
+          "destination_node_id": "node-1761260324929",
+          "id": "edge-1760798085095",
+          "transition_condition": {
+            "type": "prompt",
+            "prompt": "Else"
+          }
+        },
+        "type": "branch",
+        "display_position": {
+          "x": -5645.860835148949,
+          "y": -1186.8278998158175
+        }
+      },
+      {
+        "instruction": {
+          "type": "static_text",
+          "text": "\"Thank you for calling Pediatrics and Adult Medicine.  Our office is currently closed.  Our hours are Monday through Thursday, 8:00am to 5:00pm and Fridays 9:00am to 1:00pm.  We are closed on weekends and major holidays. For non emergency matters, I will assist you. Now, can I help you with scheduling an appointment or provide you with information on our clinical services?\""
+        },
+        "name": "Welcome Node - After hours",
+        "edges": [
+          {
+            "destination_node_id": "node-1763570733583",
+            "id": "edge-1760798336873-nsepcrzz1",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Always"
+            }
+          }
+        ],
+        "start_speaker": "agent",
+        "id": "node-1760798336873",
+        "type": "conversation",
+        "display_position": {
+          "x": -4780.667237424006,
+          "y": -830.0060093340688
+        }
+      },
+      {
+        "instruction": {
+          "type": "static_text",
+          "text": "If this is a medical emergency please hang up and dial 9-1-1 or go to the nearest emergency room. "
+        },
+        "name": "Welcome Node - After Hours Part 1",
+        "edges": [
+          {
+            "id": "edge-1761260324929",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Describe the transition condition"
+            }
+          }
+        ],
+        "id": "node-1761260324929",
+        "type": "conversation",
+        "display_position": {
+          "x": -5201.274682040708,
+          "y": -1026.2131168407595
+        },
+        "interruption_sensitivity": 0,
+        "skip_response_edge": {
+          "destination_node_id": "node-1760798336873",
+          "id": "edge-1761260395498",
+          "transition_condition": {
+            "type": "prompt",
+            "prompt": "Skip response"
+          }
+        }
+      },
+      {
+        "name": "Logic Split Node - Front Desk",
+        "edges": [
+          {
+            "destination_node_id": "node-1761750739273",
+            "id": "edge-1761852001913",
+            "transition_condition": {
+              "type": "equation",
+              "equations": [
+                {
+                  "left": "{{officeHours}}",
+                  "operator": "==",
+                  "right": "true"
+                }
+              ],
+              "operator": "||"
+            }
+          }
+        ],
+        "else_edge": {
+          "destination_node_id": "node-1761751179846",
+          "id": "edge-1761589459674",
+          "transition_condition": {
+            "type": "prompt",
+            "prompt": "Else"
+          }
+        },
+        "id": "node-1761589459674",
+        "type": "branch",
+        "display_position": {
+          "x": -1914.4796447957322,
+          "y": -1841.5268229310386
+        }
+      },
+      {
+        "instruction": {
+          "type": "prompt",
+          "text": "Tell the user that you are transferring the call for the reason they gave.\n\nExample:\n\"One moment while I see if Miss Anne is available.\"\n\n\"Let me get someone who can help with your prescription.\"\n\n\"One moment while I transfer you to someone who can help.\""
+        },
+        "name": "Conversation - Transferring Call",
+        "edges": [],
+        "id": "node-1761750739273",
+        "type": "conversation",
+        "display_position": {
+          "x": -463.11927880148244,
+          "y": -739.4987328880519
+        },
+        "skip_response_edge": {
+          "destination_node_id": "node-1760500467890",
+          "id": "edge-1761750763592",
+          "transition_condition": {
+            "type": "prompt",
+            "prompt": "Skip response"
+          }
+        }
+      },
+      {
+        "name": "Conversation - Take a message",
+        "edges": [
+          {
+            "destination_node_id": "node-1763570733583",
+            "id": "edge-1761751179846",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "The user asks about our services or wants to schedule an appointment."
+            }
+          },
+          {
+            "destination_node_id": "node-1763570733583",
+            "id": "edge-1762354645106-k25oybtfp",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "The caller refused to leave a message."
+            }
+          },
+          {
+            "destination_node_id": "node-1762438570800",
+            "id": "edge-1762438551985-3p5oqhocg",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "You have all the information you need to leave a message and you are ready to end the call."
+            }
+          }
+        ],
+        "id": "node-1761751179846",
+        "type": "conversation",
+        "display_position": {
+          "x": 345.34781540835047,
+          "y": -798.51312116362
+        },
+        "instruction": {
+          "type": "prompt",
+          "text": "Explain that the office is not open now and offer to take a message. If the caller wants to leave a message, be sure to get their name, phone number and a descriptive reason for their call.\n\nAsk one question at a time.\n\nYou: \"It's after hours right now so I'm not able to transfer you to the office. Can I take a message for you?\"\n\nOnce you've taken the message ask the caller if there is anything else you can help them with.\n\nIf they don't have any other questions, politely end the call.\n\nExample:\n\"Thanks Jon.  I'll deliver your message for you.  Is there anything else that I can help you with?\"\nCaller: \"No.\"\nYou: \"Alright, If you think of anything else don't hesitate to call me back.\"\nCaller: \"Okay\"\nYou: \"Bye for now.\"\nCaller: \"Goodbye\""
+        }
+      },
+      {
+        "name": "Conversation - Prescription Details & transfer",
+        "edges": [
+          {
+            "destination_node_id": "node-1761924370618",
+            "id": "edge-1761853186864",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "The caller has given you the patient's full name and date of birth."
+            }
+          },
+          {
+            "destination_node_id": "node-1763570733583",
+            "id": "edge-1762291720446-fh0l355c5",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "The user inquires about something else."
+            }
+          }
+        ],
+        "id": "node-1761853186864",
+        "type": "conversation",
+        "display_position": {
+          "x": -3870.8515706083526,
+          "y": -1602.406405942389
+        },
+        "instruction": {
+          "type": "prompt",
+          "text": "Explain to the caller that before you transfer them to someone who can help with their prescription you need to know the patient's full name and date of birth.\n\nAsk for the patient's full name and date of birth.\n\nAsk one question at a time\nverify the spelling of difficult names.\n\nExample\nYou: \"Can I have the patient's first and last name?\"\nCaller: \"Jon Jones\"\nYou:  \"Is John spelled J o H N?\"\nCaller: \"No. There's no H.\"\nYou: \"Okay. I have J O N Jon Jones. What's Jon's date of birth?\"\n"
+        }
+      },
+      {
+        "custom_sip_headers": {},
+        "transfer_destination": {
+          "type": "predefined",
+          "number": "+13869653832"
+        },
+        "edge": {
+          "destination_node_id": "node-1761862915102",
+          "id": "edge-1761862792220",
+          "transition_condition": {
+            "type": "prompt",
+            "prompt": "Transfer failed"
+          }
+        },
+        "instruction": {
+          "type": "prompt",
+          "text": "Transferring your call now."
+        },
+        "name": "Transfer Call - Office 2nd attempt",
+        "id": "node-1761862792220",
+        "transfer_option": {
+          "cold_transfer_mode": "sip_refer",
+          "enable_bridge_audio_cue": true,
+          "type": "cold_transfer",
+          "show_transferee_as_caller": true
+        },
+        "type": "transfer_call",
+        "display_position": {
+          "x": -70.84970659755791,
+          "y": -464.1168741208577
+        }
+      },
+      {
+        "name": "Conversation- Transfer failed take a message",
+        "edges": [
+          {
+            "destination_node_id": "node-1763570733583",
+            "id": "edge-1761862915102",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "The caller asks about anything other than leaving a message."
+            }
+          },
+          {
+            "destination_node_id": "node-1763570733583",
+            "id": "edge-1762351008026-e3gk1qdm5",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "The caller refused to leave a message."
+            }
+          },
+          {
+            "destination_node_id": "node-1762438570800",
+            "id": "edge-1762438486233-90dbbt1eb",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "You have all the information you need to leave a message and you are ready to end the call."
+            }
+          }
+        ],
+        "id": "node-1761862915102",
+        "type": "conversation",
+        "display_position": {
+          "x": -2956.983464415295,
+          "y": -1598.7845111083457
+        },
+        "instruction": {
+          "type": "prompt",
+          "text": "Tell the caller that the transfer failed and offer to take a message. If the caller wants to leave a message, be sure to get their name, phone number and a descriptive reason for their call.\n\nAsk one question at a time.\n\n\nAfter taking a message ask if there is anything else you can help them with.\n\nIf the caller says there is nothing else that you can help them with, say 'Thanks for calling, goodbye.'"
+        }
+      },
+      {
+        "custom_sip_headers": {},
+        "transfer_destination": {
+          "type": "predefined",
+          "number": "+13869653832"
+        },
+        "edge": {
+          "destination_node_id": "node-1761924526583",
+          "id": "edge-1761924370618",
+          "transition_condition": {
+            "type": "prompt",
+            "prompt": "Transfer failed"
+          }
+        },
+        "instruction": {
+          "type": "prompt",
+          "text": "Transferring your call now."
+        },
+        "name": "Transfer Call - Prescription 1st attempt",
+        "ignore_e164_validation": false,
+        "id": "node-1761924370618",
+        "transfer_option": {
+          "cold_transfer_mode": "sip_invite",
+          "enable_bridge_audio_cue": true,
+          "type": "cold_transfer",
+          "show_transferee_as_caller": false
+        },
+        "type": "transfer_call",
+        "display_position": {
+          "x": -3490.176881849694,
+          "y": -1609.4575512225958
+        }
+      },
+      {
+        "custom_sip_headers": {},
+        "transfer_destination": {
+          "type": "predefined",
+          "number": "+13869653832"
+        },
+        "edge": {
+          "destination_node_id": "node-1761862915102",
+          "id": "edge-1761924526583",
+          "transition_condition": {
+            "type": "prompt",
+            "prompt": "Transfer failed"
+          }
+        },
+        "instruction": {
+          "type": "prompt",
+          "text": "Transferring your call now."
+        },
+        "name": "Transfer Call - Prescription 2nd attempt",
+        "ignore_e164_validation": false,
+        "id": "node-1761924526583",
+        "transfer_option": {
+          "cold_transfer_mode": "sip_invite",
+          "enable_bridge_audio_cue": true,
+          "type": "cold_transfer",
+          "show_transferee_as_caller": false
+        },
+        "type": "transfer_call",
+        "display_position": {
+          "x": -3445.34112956224,
+          "y": -1236.2491888719383
+        }
+      },
+      {
+        "name": "Conversation - Global",
+        "edges": [
+          {
+            "destination_node_id": "node-1763570733583",
+            "id": "edge-1763616094303-9w7v9fy1b",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Always"
+            }
+          }
+        ],
+        "id": "node-1762193529225",
+        "type": "conversation",
+        "display_position": {
+          "x": -4590.924133687879,
+          "y": 1229.830876488136
+        },
+        "instruction": {
+          "type": "prompt",
+          "text": ""
+        }
+      },
+      {
+        "name": "Conversation - Pre end call",
+        "edges": [
+          {
+            "destination_node_id": "node-1763570733583",
+            "id": "edge-1762438570800-emntlgn5s",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "The caller has something else to discuss."
+            }
+          },
+          {
+            "destination_node_id": "node-1762438980548",
+            "id": "edge-1762438952216-m35avd9i5",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "The caller does NOT have anything else to discuss."
+            }
+          }
+        ],
+        "id": "node-1762438570800",
+        "type": "conversation",
+        "display_position": {
+          "x": 748.01723081178,
+          "y": 1860.2870958267176
+        },
+        "instruction": {
+          "type": "prompt",
+          "text": "Confirm that the caller doesn't have anything further to discuss.\nExample\nYou: \"Do you have any other questions before we go?\"\nCaller: \"No\"\nExample\nYou: \"Is there anything else I can help you with?\"\nCaller: \"no\"\nExample\nYou: \"If you don't have any other questions, I'll end the call now.\"\nCaller: \"Okay. Thank you\"\n"
+        }
+      },
+      {
+        "instruction": {
+          "type": "prompt",
+          "text": "Politely say goodbye."
+        },
+        "name": "Conversation - Goodbye",
+        "edges": [
+          {
+            "id": "edge-1762438980548-3ue5h549z",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "always"
+            }
+          }
+        ],
+        "id": "node-1762438980548",
+        "type": "conversation",
+        "display_position": {
+          "x": 1159.2167872551802,
+          "y": 1866.6986296365276
+        },
+        "skip_response_edge": {
+          "destination_node_id": "end-call-node-1760498040902",
+          "id": "edge-1762439696338",
+          "transition_condition": {
+            "type": "prompt",
+            "prompt": "Skip response"
+          }
+        }
+      },
+      {
+        "name": "Conversation - Cancel or Reschedule Appointment",
+        "edges": [
+          {
+            "destination_node_id": "node-1763516633924",
+            "id": "edge-1764687051474-60rcus6l9",
+            "transition_condition": {
+              "type": "equation",
+              "equations": [
+                {
+                  "left": "1",
+                  "operator": "==",
+                  "right": "1"
+                }
+              ],
+              "operator": "||"
+            }
+          }
+        ],
+        "id": "node-1763492062233",
+        "type": "conversation",
+        "display_position": {
+          "x": 2268.9992797678747,
+          "y": -1773.0998209286322
+        },
+        "instruction": {
+          "type": "prompt",
+          "text": "Goal / Instruction: {{promptInjection}}\n\nAsk one question at a time.\n\n\"Encounters\" is another term for appointments.   If you get a result that says 'found 0 encounters', it means that there aren't any appointments for the patient.\n\nUse the term appointments instead of encounters."
+        }
+      },
+      {
+        "variables": [
+          {
+            "name": "nextStep",
+            "description": "Determine the best next step based on the current state of the conversation and the user's intent.\n\nSteps to schedule a new appointment\n1. Determine if the patient is a new patient or if they have been seen by us before.\n\nSteps to schedule a new appointment for a new patient\n1. Determine user's preferred timeframe for appointment\n2. Check schedule for available appointments during the preferred timeframe.\n3. Provide user with a few choices from the available appointments.\n4. User chooses the appointment they want to book.\n5. Gather the neccessary patient details to book the appointment.\n6. Book the appointment.\n\nSteps to schedule a new appointment for a previous patient\n1. Gather the patient's details needed to find the patient's patient id.\n2. Find the patient Id.\n3. Determine the user's preferred timeframe for appointment.\n4. Book the appointment.\n\nSteps to reschedule/cancel an appointment\n1. Pull the patient's appointment record using the patient's full  name, phone number, and date of birth. You must know the patient's full name, phone and date of birth OR  the patientId to pull the patient's appointment record.\n2. Find the appointment in the record that corresponds to the one the user wants to cancel or reschedule.\nIf it doesn't exist in the record, continue.\n3. If the user wants to reschedule, check the schedule for available slots during the requested time window.\n4. Cancel the existing appointment using the appointment ID from the patient's appointment record that corresponds to the appoint the user wants to cancel / reschedule.\n5. Book the new appointment\n\nSteps to check on an existing appointment\n1. Get the patient ID if you don't already know it. Use 'Find the patient's patientId' tool.\n2. Pull the patient's appointment record.\n\nTo pull the patient's appointment record, you need to know the patient's full name, phone number and date of birth OR  the patientId.\n\nIf the user wants to change the appointment type (for example from in-person to telehealth), you must cancel the existing appointment and book a new one. The same appointment time may not be available for the new appointment type as they are separate schedules.\n\nYou are in a component that provides tools to schedule new appointments, cancel or reschedule appointments, or check on an existing appointment. If the conversation goes away from those, exit the component.  \n\nContinue conversation- Use this tool to interact with the user such as asking questions or providing information.\n\nFind the patient's patient ID - This tool requires the patient's full name, phone number, and date of birth.  If you don't know all of these, ask the user before using this tool.\n\nPull the patient's appointment record - This tool requires the exact patientId that is returned from the find patient's patient ID tool. If you don't have the patientId, use that tool first.\n\nCheck schedule for available slots - This tool requires the time frame to look for available appointments in. If you don't know when the user wants to check availability for, ask the user before using this tool.\n\nBook new appointment for a previous patient - This tool requires a slotID that is returned when you check the schedule.  If you don't have an exact slotId that corresponds with the appointment the user wants to book, you should check the schedule first. This tool requires an exact patientId that is returned from the 'Find the patient's patient ID' tool.  If you don't have the patientId, use that tool first.\n\nCancel existing appointment - This tool requires an appointment Id that is returned when you pull the patient's appointment record. It is different from the slot Id that was used to book the appointment.  If you don't have an exact appointment Id that corresponds to the appointment the user is canceling, pull the patient's appointment record first.\n\nExit this component - This tool takes you back to the main component where you can take other actions.  Use this tool if you have completed the task or if the conversation goes to something outside the scope of this component.\n\nBook new appointment for a new patient - This tool requires a slotID that is returned when you check the schedule.  If you don't have an exact slotId that corresponds with the appointment the user wants to book, you should check the schedule first. This tool also requires the patient's full name, phone, email and the reason for the appointment. If you don't have those details, ask the patient before you use this tool.",
+            "type": "enum",
+            "choices": [
+              "Continue conversation",
+              "Pull the patient's appointment record",
+              "Check schedule for available slots",
+              "Book new appointment for a previous patient",
+              "Cancel existing appointment",
+              "Exit this component",
+              "Find the patient's patient ID",
+              "Book new appointment for a new patient"
+            ]
+          },
+          {
+            "name": "why",
+            "description": "A brief explanation of why you chose the nextStep that you chose.",
+            "type": "string",
+            "choices": []
+          },
+          {
+            "name": "promptInjection",
+            "description": "Write the goal or instructions for the conversation agent for the next step. Provide one step only.  Leave blank if the nextStep is not \"Continue conversation\"",
+            "type": "string",
+            "choices": []
+          }
+        ],
+        "model_choice": {
+          "type": "cascading",
+          "model": "gpt-5.1",
+          "high_priority": true
+        },
+        "name": "Extract Variables - Next Step",
+        "edges": [
+          {
+            "destination_node_id": "node-1763492062233",
+            "id": "edge-1763517693048-wehxz36u3",
+            "transition_condition": {
+              "type": "equation",
+              "equations": [
+                {
+                  "left": "{{nextStep}}",
+                  "operator": "==",
+                  "right": "Continue conversation"
+                }
+              ],
+              "operator": "||"
+            }
+          },
+          {
+            "destination_node_id": "node-1763563480359",
+            "id": "edge-1763517810248-lsgmtzy7q",
+            "transition_condition": {
+              "type": "equation",
+              "equations": [
+                {
+                  "left": "{{nextStep}}",
+                  "operator": "==",
+                  "right": "Pull the patient's appointment record"
+                }
+              ],
+              "operator": "||"
+            }
+          },
+          {
+            "destination_node_id": "node-1763563650291",
+            "id": "edge-1763517840066-mbqsacjy6",
+            "transition_condition": {
+              "type": "equation",
+              "equations": [
+                {
+                  "left": "{{nextStep}}",
+                  "operator": "==",
+                  "right": "Check schedule for available slots"
+                }
+              ],
+              "operator": "||"
+            }
+          },
+          {
+            "destination_node_id": "node-1763563705977",
+            "id": "edge-1763517869900-55ygp96k0",
+            "transition_condition": {
+              "type": "equation",
+              "equations": [
+                {
+                  "left": "{{nextStep}}",
+                  "operator": "==",
+                  "right": "Book new appointment for a previous patient"
+                }
+              ],
+              "operator": "||"
+            }
+          },
+          {
+            "destination_node_id": "node-1763563744905",
+            "id": "edge-1763517899212-cqdjtja9l",
+            "transition_condition": {
+              "type": "equation",
+              "equations": [
+                {
+                  "left": "{{nextStep}}",
+                  "operator": "==",
+                  "right": "Cancel existing appointment"
+                }
+              ],
+              "operator": "||"
+            }
+          },
+          {
+            "id": "edge-1763517966308-k9rj1kl5k",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Else"
+            }
+          },
+          {
+            "destination_node_id": "node-1763570733583",
+            "id": "edge-1763566847389-zbrve8yu3",
+            "transition_condition": {
+              "type": "equation",
+              "equations": [
+                {
+                  "left": "{{nextStep}}",
+                  "operator": "==",
+                  "right": "Exit this component"
+                }
+              ],
+              "operator": "||"
+            }
+          },
+          {
+            "destination_node_id": "node-1763579707843",
+            "id": "edge-1763579585679-xhqsywpks",
+            "transition_condition": {
+              "type": "equation",
+              "equations": [
+                {
+                  "left": "{{nextStep}}",
+                  "operator": "==",
+                  "right": "Find the patient's patient ID"
+                }
+              ],
+              "operator": "||"
+            }
+          },
+          {
+            "destination_node_id": "node-1763586117761",
+            "id": "edge-1763585579871-iq24azh60",
+            "transition_condition": {
+              "type": "equation",
+              "equations": [
+                {
+                  "left": "{{nextStep}}",
+                  "operator": "==",
+                  "right": "Book new appointment for a new patient"
+                }
+              ],
+              "operator": "||"
+            }
+          }
+        ],
+        "id": "node-1763516633924",
+        "type": "extract_dynamic_variables",
+        "display_position": {
+          "x": 2662.958373961301,
+          "y": -860.6861761759358
+        }
+      },
+      {
+        "tool_id": "tool-1761264359929",
+        "model_choice": {
+          "type": "cascading",
+          "model": "gpt-4.1",
+          "high_priority": false
+        },
+        "name": "Lookup Patient",
+        "edges": [
+          {
+            "destination_node_id": "node-1763516633924",
+            "id": "edge-1763518393141-0-l2bnkp1al",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Record not found"
+            }
+          },
+          {
+            "destination_node_id": "node-1763516633924",
+            "id": "edge-1763518393141-1-ju3myzmml",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Found record"
+            }
+          }
+        ],
+        "id": "node-1763518393141",
+        "type": "function",
+        "tool_type": "local",
+        "speak_during_execution": false,
+        "display_position": {
+          "x": 3380.6946256606266,
+          "y": -1300.6140368499755
+        },
+        "wait_for_result": true
+      },
+      {
+        "tool_id": "tool-1761934960988",
+        "model_choice": {
+          "type": "cascading",
+          "model": "gpt-4.1",
+          "high_priority": false
+        },
+        "name": "Patient Encounters",
+        "edges": [
+          {
+            "destination_node_id": "node-1763516633924",
+            "id": "edge-1763518403845-0-p3i463kol",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Always"
+            }
+          }
+        ],
+        "id": "node-1763518403845",
+        "type": "function",
+        "tool_type": "local",
+        "speak_during_execution": false,
+        "display_position": {
+          "x": 3787.414346783243,
+          "y": -1272.465590300837
+        },
+        "wait_for_result": true
+      },
+      {
+        "tool_id": "tool-1760569848237",
+        "model_choice": {
+          "type": "cascading",
+          "model": "gpt-4.1",
+          "high_priority": false
+        },
+        "name": "Find Healow Appointments",
+        "edges": [
+          {
+            "destination_node_id": "node-1763516633924",
+            "id": "edge-1763518642520-0-flxbts2dv",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Always"
+            }
+          }
+        ],
+        "id": "node-1763518642520",
+        "type": "function",
+        "tool_type": "local",
+        "speak_during_execution": false,
+        "display_position": {
+          "x": 4063.271297113014,
+          "y": 166.29379239193815
+        },
+        "wait_for_result": true
+      },
+      {
+        "tool_id": "tool-1761274335354",
+        "name": "Book Healow Appointment Existing Patient",
+        "edges": [
+          {
+            "destination_node_id": "node-1764883142381",
+            "id": "edge-1764883073485-szj92tzy5",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Booking Succeeded"
+            }
+          },
+          {
+            "destination_node_id": "node-1763516633924",
+            "id": "edge-1764883084760-ivagbq5ke",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Booking failed"
+            }
+          }
+        ],
+        "id": "node-1763524674976",
+        "type": "function",
+        "tool_type": "local",
+        "speak_during_execution": false,
+        "display_position": {
+          "x": 3678.899324979339,
+          "y": 248.1028592846951
+        },
+        "wait_for_result": true
+      },
+      {
+        "tool_id": "tool-1763524157378",
+        "name": "Cancel Healow Appointment",
+        "edges": [
+          {
+            "destination_node_id": "node-1763516633924",
+            "id": "edge-1763524737623-xvfys5w4y",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Always"
+            }
+          }
+        ],
+        "id": "node-1763524719774",
+        "type": "function",
+        "tool_type": "local",
+        "speak_during_execution": false,
+        "display_position": {
+          "x": 3218.298277333769,
+          "y": 283.82842523791555
+        },
+        "wait_for_result": true
+      },
+      {
+        "instruction": {
+          "type": "prompt",
+          "text": "Indicate to the user that you need a moment.  You can use phrases like 'One second please\", \"Hold on for just a moment\" or something similar so the user knows that you are doing something and not just silent."
+        },
+        "name": "Conversation",
+        "edges": [
+          {
+            "id": "edge-1763563480359-8h36f6ut6",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Describe the transition condition"
+            }
+          }
+        ],
+        "id": "node-1763563480359",
+        "type": "conversation",
+        "display_position": {
+          "x": 3779.851477764043,
+          "y": -1601.5041411350494
+        },
+        "skip_response_edge": {
+          "destination_node_id": "node-1763518403845",
+          "id": "edge-1763563488494",
+          "transition_condition": {
+            "type": "prompt",
+            "prompt": "Skip response"
+          }
+        }
+      },
+      {
+        "instruction": {
+          "type": "prompt",
+          "text": "Indicate to the user that you need a moment.  You can use phrases like 'One second please\", \"Hold on for just a moment\" or something similar so the user knows that you are doing something and not just silent."
+        },
+        "name": "Conversation",
+        "edges": [
+          {
+            "id": "edge-1763563650291-0-9tl98vw95",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Describe the transition condition"
+            }
+          }
+        ],
+        "id": "node-1763563650291",
+        "type": "conversation",
+        "display_position": {
+          "x": 4061.8340802162124,
+          "y": -165.7418516091745
+        },
+        "skip_response_edge": {
+          "destination_node_id": "node-1763518642520",
+          "id": "skip_response_edge-1763563650291-2-c98cu6zf3",
+          "transition_condition": {
+            "type": "prompt",
+            "prompt": "Skip response"
+          }
+        }
+      },
+      {
+        "instruction": {
+          "type": "prompt",
+          "text": "Indicate to the user that you need a moment.  You can use phrases like 'One second please\", \"Hold on for just a moment\" or something similar so the user knows that you are doing something and not just silent."
+        },
+        "name": "Conversation",
+        "edges": [
+          {
+            "id": "edge-1763563705977-0-82ozujl6d",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Describe the transition condition"
+            }
+          }
+        ],
+        "id": "node-1763563705977",
+        "type": "conversation",
+        "display_position": {
+          "x": 3680.8617168016026,
+          "y": -85.94309243545732
+        },
+        "skip_response_edge": {
+          "destination_node_id": "node-1763524674976",
+          "id": "skip_response_edge-1763563705977-2-wpfq3p4wh",
+          "transition_condition": {
+            "type": "prompt",
+            "prompt": "Skip response"
+          }
+        }
+      },
+      {
+        "instruction": {
+          "type": "prompt",
+          "text": "Indicate to the user that you need a moment.  You can use phrases like 'One second please\", \"Hold on for just a moment\" or something similar so the user knows that you are doing something and not just silent."
+        },
+        "name": "Conversation",
+        "edges": [
+          {
+            "id": "edge-1763563744905-0-mk5t5zwb3",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Describe the transition condition"
+            }
+          }
+        ],
+        "id": "node-1763563744905",
+        "type": "conversation",
+        "display_position": {
+          "x": 3197.2957831231856,
+          "y": -43.941964411563845
+        },
+        "skip_response_edge": {
+          "destination_node_id": "node-1763524719774",
+          "id": "skip_response_edge-1763563744905-2-nx9fdhyku",
+          "transition_condition": {
+            "type": "prompt",
+            "prompt": "Skip response"
+          }
+        }
+      },
+      {
+        "variables": [
+          {
+            "name": "nextStep",
+            "description": "You are in the main component which has options to transition to a specialty component or continue talking to the user.\nYou must determine the best next step based on the current state of the conversation and the user's intent.\n\nGo to 'Read / write appointments' component\n    The caller wants to review, schedule, reschedule or cancel an appointment\n    The caller was previously scheduling an appointment in this conversation and is ready to continue scheduling.\n\nGo to pharmacy and prescription component\n    All inquiries regarding prescriptions\n\nGo to 'Transfer to front desk' component\n    The caller identifies themself as being from another doctor's office or insurance company\n    The caller wants to pause or cancel treatment\n    The caller asks to speak with a specific person by name\n    The caller asks to be transferred to the office\n    The caller says they are calling about, doctor's note, insurance requirements, pharmacy issues, billing, payment, referrals or any unresolved problem.\n    The caller says they are returning a call\n\nGo to 'End Call' Component\n\nContinue Conversation\n    Use this tool to interact with the user such as asking questions or providing information.\n    The caller asks for information about the office or services\n    The caller asks about Disability forms, FMLA, or Medical records",
+            "type": "enum",
+            "choices": [
+              "Go to 'Read / write appointments' component",
+              "Go to pharmacy and prescription component",
+              "Go to 'Transfer to front desk' component",
+              "Go to 'End Call' Component",
+              "Continue Conversation"
+            ]
+          },
+          {
+            "name": "why",
+            "description": "A brief explanation of why you chose the nextStep that you chose.",
+            "type": "string",
+            "choices": []
+          }
+        ],
+        "model_choice": {
+          "type": "cascading",
+          "model": "gpt-5.1",
+          "high_priority": true
+        },
+        "name": "Extract Variables - Next Step",
+        "edges": [
+          {
+            "destination_node_id": "node-1763516633924",
+            "id": "edge-1763570733583-0-wl9kc1oia",
+            "transition_condition": {
+              "type": "equation",
+              "equations": [
+                {
+                  "left": "{{nextStep}}",
+                  "operator": "==",
+                  "right": "Go to 'Read / write appointments' component"
+                }
+              ],
+              "operator": "||"
+            }
+          },
+          {
+            "destination_node_id": "node-1761853186864",
+            "id": "edge-1763570733583-1-sp47fz69o",
+            "transition_condition": {
+              "type": "equation",
+              "equations": [
+                {
+                  "left": "{{nextStep}}",
+                  "operator": "==",
+                  "right": "Go to pharmacy and prescription component"
+                }
+              ],
+              "operator": "||"
+            }
+          },
+          {
+            "destination_node_id": "node-1761589459674",
+            "id": "edge-1763570733583-2-knwo3rkgf",
+            "transition_condition": {
+              "type": "equation",
+              "equations": [
+                {
+                  "left": "{{nextStep}}",
+                  "operator": "==",
+                  "right": "Go to 'Transfer to front desk' component"
+                }
+              ],
+              "operator": "||"
+            }
+          },
+          {
+            "destination_node_id": "node-1762438570800",
+            "id": "edge-1763570733583-4-6u90h4ruy",
+            "transition_condition": {
+              "type": "equation",
+              "equations": [
+                {
+                  "left": "{{nextStep}}",
+                  "operator": "==",
+                  "right": "Go to 'End Call' Component"
+                }
+              ],
+              "operator": "||"
+            }
+          },
+          {
+            "destination_node_id": "node-1762193529225",
+            "id": "edge-1763570733583-6-8s7shuynh",
+            "transition_condition": {
+              "type": "equation",
+              "equations": [
+                {
+                  "left": "{{nextStep}}",
+                  "operator": "==",
+                  "right": "Continue Conversation"
+                }
+              ],
+              "operator": "||"
+            }
+          }
+        ],
+        "id": "node-1763570733583",
+        "type": "extract_dynamic_variables",
+        "display_position": {
+          "x": -4594.943183077799,
+          "y": 467.11149988791755
+        }
+      },
+      {
+        "instruction": {
+          "type": "prompt",
+          "text": "Indicate to the user that you need a moment.  You can use phrases like 'One second please\", \"Hold on for just a moment\" or something similar so the user knows that you are doing something and not just silent."
+        },
+        "name": "Conversation",
+        "edges": [
+          {
+            "id": "edge-1763579707843-0-kfokqu7xw",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Describe the transition condition"
+            }
+          }
+        ],
+        "id": "node-1763579707843",
+        "type": "conversation",
+        "display_position": {
+          "x": 3388.5760317041804,
+          "y": -1606.1340417014117
+        },
+        "skip_response_edge": {
+          "destination_node_id": "node-1763518393141",
+          "id": "skip_response_edge-1763579707843-2-cqg1ohk2w",
+          "transition_condition": {
+            "type": "prompt",
+            "prompt": "Skip response"
+          }
+        }
+      },
+      {
+        "instruction": {
+          "type": "prompt",
+          "text": "Indicate to the user that you need a moment.  You can use phrases like 'One second please\", \"Hold on for just a moment\" or something similar so the user knows that you are doing something and not just silent."
+        },
+        "name": "Conversation",
+        "edges": [
+          {
+            "id": "edge-1763586117761-0-1ewcqel59",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Describe the transition condition"
+            }
+          }
+        ],
+        "id": "node-1763586117761",
+        "type": "conversation",
+        "display_position": {
+          "x": 2792.6804113047924,
+          "y": 11.442651100173968
+        },
+        "skip_response_edge": {
+          "destination_node_id": "node-1763586153542",
+          "id": "skip_response_edge-1763586117761-2-r5qc2vfs0",
+          "transition_condition": {
+            "type": "prompt",
+            "prompt": "Skip response"
+          }
+        }
+      },
+      {
+        "tool_id": "tool-1760572897062",
+        "model_choice": {
+          "type": "cascading",
+          "model": "gpt-4.1",
+          "high_priority": false
+        },
+        "name": "Book Healow Appointment New Patient",
+        "edges": [
+          {
+            "destination_node_id": "node-1764883112802",
+            "id": "edge-1764883030114-6ledsrkwt",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Booking succeeded"
+            }
+          },
+          {
+            "destination_node_id": "node-1763516633924",
+            "id": "edge-1764883054428-2hos28fwb",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Booking Failed"
+            }
+          }
+        ],
+        "id": "node-1763586153542",
+        "type": "function",
+        "tool_type": "local",
+        "speak_during_execution": false,
+        "display_position": {
+          "x": 2807.3597021162036,
+          "y": 348.5827603643652
+        },
+        "wait_for_result": true
+      },
+      {
+        "instruction": {
+          "type": "prompt",
+          "text": "Inform the user that the appointment has been booked and ask them to please bring their id, their CURRENT insurance card, and a list of any medications they are currently taking.\n\nDo NOT ask any questions.\n"
+        },
+        "name": "Conversation",
+        "edges": [
+          {
+            "id": "edge-1764883112802-xyj44izvo",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Describe the transition condition"
+            }
+          }
+        ],
+        "id": "node-1764883112802",
+        "type": "conversation",
+        "display_position": {
+          "x": 2846.907006380794,
+          "y": 628.9327854909044
+        },
+        "skip_response_edge": {
+          "destination_node_id": "node-1763516633924",
+          "id": "edge-1764883118729",
+          "transition_condition": {
+            "type": "prompt",
+            "prompt": "Skip response"
+          }
+        }
+      },
+      {
+        "instruction": {
+          "type": "prompt",
+          "text": "Inform the user that the appointment has been booked and ask them to please bring their id, their CURRENT insurance card, and a list of any medications they are currently taking.\n\nDo NOT ask any questions."
+        },
+        "name": "Conversation",
+        "edges": [
+          {
+            "id": "edge-1764883142381-0-pkz2m4b1u",
+            "transition_condition": {
+              "type": "prompt",
+              "prompt": "Describe the transition condition"
+            }
+          }
+        ],
+        "id": "node-1764883142381",
+        "type": "conversation",
+        "display_position": {
+          "x": 3689.3179927322417,
+          "y": 518.843440631894
+        },
+        "skip_response_edge": {
+          "destination_node_id": "node-1763516633924",
+          "id": "skip_response_edge-1764883142381-2-qgp0j0x74",
+          "transition_condition": {
+            "type": "prompt",
+            "prompt": "Skip response"
+          }
+        }
+      }
+    ],
+    "components": [
+      {
+        "name": "Component L1",
+        "start_node_id": "conversation-1760989721347",
+        "conversation_flow_component_id": "cf-component-1760989721346",
+        "nodes": [
+          {
+            "name": "Conversation",
+            "edges": [],
+            "id": "conversation-1760989721347",
+            "type": "conversation",
+            "display_position": {
+              "x": 200,
+              "y": 100
+            },
+            "instruction": {
+              "type": "prompt",
+              "text": "Describe what the AI should say or do"
+            }
+          },
+          {
+            "name": "Exit Component",
+            "id": "component-end-1760989721347",
+            "type": "end",
+            "display_position": {
+              "x": 600,
+              "y": 100
+            },
+            "instruction": {
+              "type": "static_text",
+              "text": "Component completed"
+            }
+          }
+        ],
+        "user_modified_timestamp": 1760989721347,
+        "tools": []
+      }
+    ],
+    "start_node_id": "node-1760798085095",
+    "start_speaker": "agent",
+    "tools": [
+      {
+        "headers": {},
+        "parameter_type": "json",
+        "method": "POST",
+        "query_params": {},
+        "description": "Find available appointment slots in the Healow EMR system based on time preferences and availability.\nFor New Patient visits use slotType: \"NP\"\nFor existing or previous patients use slotType: \"OV\"\nFor telehealth visits slotType: \"Televisit\"\nCurrent Date/time: {{ current_time_America/New_York }}\nAlways use the year that corresponds to the next calendar occurrence of the target month and day. If the month/day has already passed this year, move it to next year. If the month/day has not yet occurred, keep it in the current year.\nIf the user didn't provide a time frame or asked for next available or similar, check for a 14 day time frame beginning with today's date.",
+        "type": "custom",
+        "url": "https://api-dev.eccoverse.ai/webhooks/retell/ecw/scheduler/0e5fc3ef-50e9-4ec5-84e1-d24a3b0f11ff",
+        "tool_id": "tool-1760569848237",
+        "args_at_root": false,
+        "timeout_ms": 120000,
+        "name": "find_healow_appointments",
+        "response_variables": {
+          "message": "properties.message",
+          "success": "properties.success",
+          "totalSlots": "properties.totalSlots"
+        },
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "dayOfWeek": {
+              "type": "string",
+              "description": "Specific day of the week to search",
+              "enum": [
+                "monday",
+                "tuesday",
+                "wednesday",
+                "thursday",
+                "friday",
+                "saturday",
+                "sunday"
+              ]
+            },
+            "specificDate": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+              "description": "Specific date to search (YYYY-MM-DD format). If the date is in the past, change the year to the next target month and day in the future."
+            },
+            "slotType": {
+              "type": "string",
+              "description": "Type of appointment slot to search for. For NEW PATIENTS use NP. For existing or previous patients use OV. For telehealth visit use Televisit",
+              "enum": [
+                "NP",
+                "OV",
+                "Televisit"
+              ]
+            },
+            "timeFrame": {
+              "type": "string",
+              "description": "The time frame to search for appointments",
+              "enum": [
+                "this week",
+                "next week",
+                "this month",
+                "next month"
+              ]
+            },
+            "timeOfDay": {
+              "type": "string",
+              "description": "Preferred time of day for appointments",
+              "enum": [
+                "morning",
+                "afternoon",
+                "evening"
+              ]
+            }
+          },
+          "required": [
+            "slotType"
+          ]
+        }
+      },
+      {
+        "headers": {},
+        "parameter_type": "json",
+        "method": "POST",
+        "query_params": {},
+        "description": "",
+        "type": "custom",
+        "url": "https://api-dev.eccoverse.ai/webhooks/retell/ecw/appointment/0e5fc3ef-50e9-4ec5-84e1-d24a3b0f11ff",
+        "tool_id": "tool-1760572897062",
+        "args_at_root": false,
+        "timeout_ms": 120000,
+        "name": "book_healow_appointment_new_patient",
+        "response_variables": {},
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "firstName": {
+              "type": "string",
+              "description": "Patient's first name"
+            },
+            "lastName": {
+              "type": "string",
+              "description": "Patient's last name"
+            },
+            "reason": {
+              "type": "string",
+              "description": "Reason for the appointment"
+            },
+            "gender": {
+              "type": "string",
+              "description": "Patient's gender",
+              "enum": [
+                "male",
+                "female",
+                "other",
+                "unknown"
+              ]
+            },
+            "phone": {
+              "type": "string",
+              "description": "Patient's phone number (has to be in this format: 404-515-2124)"
+            },
+            "slotId": {
+              "type": "string",
+              "description": "The unique identifier of the appointment slot to book"
+            },
+            "birthDate": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+              "description": "Patient's date of birth"
+            },
+            "email": {
+              "type": "string",
+              "description": "Patient's email address"
+            }
+          },
+          "required": [
+            "slotId",
+            "firstName",
+            "lastName",
+            "reason",
+            "phone",
+            "email"
+          ]
+        }
+      },
+      {
+        "headers": {},
+        "parameter_type": "json",
+        "method": "POST",
+        "query_params": {},
+        "description": "Looks up the patient record in the EMR",
+        "type": "custom",
+        "url": "https://api-dev.eccoverse.ai/webhooks/retell/ecw/patient-lookup/0e5fc3ef-50e9-4ec5-84e1-d24a3b0f11ff",
+        "tool_id": "tool-1761264359929",
+        "args_at_root": false,
+        "timeout_ms": 120000,
+        "name": "lookup_patient",
+        "response_variables": {
+          "patientId": "patients[0].id"
+        },
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "firstName": {
+              "type": "string",
+              "description": "Patient first name"
+            },
+            "lastName": {
+              "type": "string",
+              "description": "Patient last name"
+            },
+            "phone": {
+              "type": "string",
+              "description": "Patient phone number. Must not be blank.  Format XXX-XXX-XXXX"
+            },
+            "dob": {
+              "type": "string",
+              "description": "Patient's date of birth in this format: YYYY-MM-DD"
+            }
+          },
+          "required": [
+            "firstName",
+            "lastName",
+            "phone"
+          ]
+        }
+      },
+      {
+        "headers": {},
+        "parameter_type": "json",
+        "method": "POST",
+        "query_params": {},
+        "description": "",
+        "type": "custom",
+        "url": "https://api-dev.eccoverse.ai/webhooks/retell/ecw/appointment/0e5fc3ef-50e9-4ec5-84e1-d24a3b0f11ff",
+        "tool_id": "tool-1761274335354",
+        "args_at_root": false,
+        "timeout_ms": 120000,
+        "name": "book_healow_appointment_existing_patient",
+        "response_variables": {},
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "firstName": {
+              "type": "string",
+              "description": "Patient's first name"
+            },
+            "lastName": {
+              "type": "string",
+              "description": "Patient's last name"
+            },
+            "reason": {
+              "type": "string",
+              "description": "Reason for the appointment"
+            },
+            "gender": {
+              "type": "string",
+              "description": "Patient's gender",
+              "enum": [
+                "male",
+                "female",
+                "other",
+                "unknown"
+              ]
+            },
+            "phone": {
+              "type": "string",
+              "description": "Patient's phone number (has to be in this format: 404-515-2124)"
+            },
+            "patientId": {
+              "type": "string",
+              "description": "Patient's patient's patientId"
+            },
+            "slotId": {
+              "type": "string",
+              "description": "The unique identifier of the appointment slot to book"
+            },
+            "birthDate": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+              "description": "Patient's date of birth"
+            },
+            "email": {
+              "type": "string",
+              "description": "Patient's email address"
+            }
+          },
+          "required": [
+            "slotId",
+            "patientId",
+            "reason",
+            "phone",
+            "email"
+          ]
+        }
+      },
+      {
+        "headers": {},
+        "parameter_type": "json",
+        "method": "POST",
+        "query_params": {},
+        "description": "Look up appointments by patient ID",
+        "type": "custom",
+        "url": "https://api-dev.eccoverse.ai/webhooks/retell/ecw/patient-encounters/0e5fc3ef-50e9-4ec5-84e1-d24a3b0f11ff",
+        "tool_id": "tool-1761934960988",
+        "args_at_root": false,
+        "timeout_ms": 120000,
+        "name": "patient_encounters",
+        "response_variables": {},
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "date": {
+              "type": "string",
+              "description": "The date to check for appointments on in format yyyy-mm-dd. "
+            },
+            "patientId": {
+              "type": "string",
+              "description": "Patient's record id."
+            }
+          },
+          "required": [
+            "patientId"
+          ]
+        }
+      },
+      {
+        "headers": {},
+        "parameter_type": "json",
+        "method": "POST",
+        "query_params": {},
+        "description": "Cancel appointment by ID.",
+        "type": "custom",
+        "url": "https://api-dev.eccoverse.ai/webhooks/retell/ecw/cancel/0e5fc3ef-50e9-4ec5-84e1-d24a3b0f11ff",
+        "tool_id": "tool-1763524157378",
+        "args_at_root": false,
+        "timeout_ms": 120000,
+        "name": "cancel_healow_appointment",
+        "response_variables": {},
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "appointmentId": {
+              "type": "string",
+              "description": "The ID of the appointment to be cancelled."
+            }
+          },
+          "required": [
+            "appointmentId"
+          ]
+        }
+      }
+    ],
+    "model_choice": {
+      "type": "cascading",
+      "model": "gpt-4.1",
+      "high_priority": true
+    },
+    "default_dynamic_variables": {
+      "firstName": " ",
+      "lastName": " ",
+      "newPatient": " ",
+      "notes": " ",
+      "findSlotFailedCount": "0",
+      "phone": " ",
+      "bookingFailedCount": "0",
+      "recordLookupFailedCount": "0",
+      "nextStep": " ",
+      "officeHours": " ",
+      "email": " "
+    },
+    "knowledge_base_ids": [],
+    "kb_config": {
+      "top_k": 3,
+      "filter_score": 0.6
+    },
+    "begin_tag_display_position": {
+      "x": -5854.82503945005,
+      "y": -1209.3768584566183
+    },
+    "is_published": false
+  }
+}

@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Realtime Web Embed (Ephemeral + WebRTC)</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+            margin: 24px;
+        }
+
+        .row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        button {
+            padding: 10px 14px;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: min(680px, 100%);
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 12px;
+        }
+
+        #log {
+            white-space: pre-wrap;
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+            font-size: 12px;
+            height: 260px;
+            overflow: auto;
+            background: #fafafa;
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 999px;
+            background: #eee;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Realtime Web Embed</h2>
+
+    <div class="row">
+        <span class="pill" id="status">disconnected</span>
+        <button id="btnConnect">Connect</button>
+        <button id="btnDisconnect" disabled>Disconnect</button>
+        <label style="display:flex; gap:8px; align-items:center;">
+            <input type="checkbox" id="chkVad" checked />
+            Server VAD (open-mic)
+        </label>
+    </div>
+
+    <div class="row">
+        <input id="textInput" type="text" placeholder="Type a message (optional)..." />
+        <button id="btnSendText" disabled>Send Text</button>
+    </div>
+
+    <div class="box">
+        <div style="margin-bottom:8px;"><strong>Audio</strong></div>
+        <audio id="remoteAudio" autoplay></audio>
+        <div style="margin-top:8px; color:#555; font-size: 13px;">
+            Browser will ask for microphone permission after you click <em>Connect</em>.
+        </div>
+    </div>
+
+    <div style="height:12px;"></div>
+
+    <div class="box">
+        <div style="margin-bottom:8px;"><strong>Events / Transcript</strong></div>
+        <div id="log"></div>
+    </div>
+
+    <script>
+        (() => {
+            // --- UI helpers
+            const $ = (id) => document.getElementById(id);
+            const statusEl = $("status");
+            const logEl = $("log");
+
+            function setStatus(s) {
+                statusEl.textContent = s;
+            }
+            function log(...args) {
+                const line = args.map(a => (typeof a === "string" ? a : JSON.stringify(a, null, 2))).join(" ");
+                logEl.textContent += line + "\n";
+                logEl.scrollTop = logEl.scrollHeight;
+            }
+
+            // --- Realtime state
+            let pc = null;              // RTCPeerConnection
+            let dc = null;              // DataChannel
+            let micStream = null;       // MediaStream
+            let callLocation = null;    // Location header (call id URL) for future "hang up" usage if you add it
+            let connected = false;
+
+            // Buttons
+            const btnConnect = $("btnConnect");
+            const btnDisconnect = $("btnDisconnect");
+            const btnSendText = $("btnSendText");
+            const textInput = $("textInput");
+            const chkVad = $("chkVad");
+            const remoteAudio = $("remoteAudio");
+
+            function setButtons() {
+                btnConnect.disabled = connected;
+                btnDisconnect.disabled = !connected;
+                btnSendText.disabled = !connected;
+            }
+
+            async function mintEphemeral() {
+                // Your server route (the one we wrote earlier).
+                // It should return { client_secret: { value, expires_at }, model, voice, ... }
+                const r = await fetch("/realtime/web-session", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        // Optional: pass tenantId/agentId if your endpoint uses them
+                        // tenantId: "t1",
+                        // agentId: "a1",
+
+                        // Optional: can override model/voice if your endpoint supports it
+                        // model: "gpt-4o-realtime-preview",
+                        // voice: "alloy",
+                    }),
+                });
+
+                if (!r.ok) {
+                    const t = await r.text().catch(() => "");
+                    console.log("FAILED RESPONSE TEXT:", t);
+                    throw new Error(`web-session failed: ${r.status} ${t}`);
+                }
+                const data = await r.json();
+
+                const key = data?.client_secret?.value || data?.client_secret?.client_secret?.value || data?.client_secret?.value;
+                if (!key) throw new Error("No client_secret.value returned from /realtime/web-session");
+
+                const ephemId = data?.ephemId;
+                if (!ephemId) throw new Error("No ephemId returned from /realtime/web-session");
+
+                return { ephemeralKey: key, ephemId, meta: data };
+            }
+
+            function safeSend(event) {
+                if (!dc || dc.readyState !== "open") {
+                    log("⚠️ data channel not open; cannot send", event?.type);
+                    return;
+                }
+                dc.send(JSON.stringify(event));
+            }
+
+            function handleServerEvent(raw) {
+                let evt;
+                try { evt = JSON.parse(raw); } catch { return; }
+
+                // Log a lightweight view of common events; keep full JSON available.
+                if (evt.type === "error") {
+                    log("❌ error", evt);
+                    return;
+                }
+
+                // You’ll see lots of events; these are handy ones:
+                if (evt.type === "session.created" || evt.type === "session.updated") {
+                    log("✅", evt.type);
+                    return;
+                }
+
+                if (evt.type === "response.text.delta") {
+                    // Streamed text tokens
+                    log("📝 text.delta:", evt.delta);
+                    return;
+                }
+
+                if (evt.type === "response.done") {
+                    // Final response payload
+                    log("🏁 response.done");
+                    // Often the final text is inside evt.response.output[...] depending on config
+                    log(evt);
+                    return;
+                }
+
+                // Default: log event type only (reduce noise)
+                log("↩️", evt.type);
+            }
+
+            async function connect() {
+                setStatus("connecting...");
+                log("Connecting...");
+
+                // 1) Mint ephemeral key from your server
+                const { ephemeralKey, ephemId, meta } = await mintEphemeral();
+                log("Minted client_secret (ephemeral). Expires at:", meta?.client_secret?.expires_at ?? meta?.client_secret?.expires_at);
+
+                // 2) Create RTCPeerConnection
+                pc = new RTCPeerConnection();
+
+                // Play remote audio from the model
+                pc.ontrack = (e) => {
+                    remoteAudio.srcObject = e.streams[0];
+                    log("🔊 remote audio track connected");
+                };
+
+                // 3) Get mic + add track
+                micStream = await navigator.mediaDevices.getUserMedia({
+                    audio: {
+                        echoCancellation: true,
+                        noiseSuppression: true,
+                        autoGainControl: true,
+                    }
+                });
+                pc.addTrack(micStream.getTracks()[0]);
+
+                // 4) Create data channel for events
+                dc = pc.createDataChannel("oai-events");
+                dc.addEventListener("open", () => log("✅ data channel open"));
+                dc.addEventListener("message", (e) => handleServerEvent(e.data));
+                dc.addEventListener("close", () => log("ℹ️ data channel closed"));
+
+                // 5) Create SDP offer
+                const offer = await pc.createOffer();
+                await pc.setLocalDescription(offer);
+
+                // 6) POST SDP to OpenAI Realtime calls endpoint with Bearer ephemeral key
+                // This is the documented WebRTC handshake: POST offer.sdp to /v1/realtime/calls
+                // and use the ephemeral token as Authorization. :contentReference[oaicite:1]{index=1}
+                // Create multipart/form-data with fields: sdp (required) and session (optional)
+                // Create multipart/form-data with field: sdp (REQUIRED)
+                const fd = new FormData();
+                fd.append("sdp", offer.sdp); // ✅ string field named exactly "sdp"
+
+                // Optional session config (model/voice/tools). Keep it simple for now.
+                fd.append("session", JSON.stringify({
+                    type: "realtime",
+                    model: "gpt-realtime"
+                }));
+
+                const sdpResp = await fetch("https://api.openai.com/v1/realtime/calls", {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer ${ephemeralKey}`,
+                        // DO NOT set Content-Type; browser adds the multipart boundary
+                    },
+                    body: fd,
+                });
+
+
+
+                if (!sdpResp.ok) {
+                    const t = await sdpResp.text().catch(() => "");
+                    console.log("FAILED SDP RESPONSE TEXT:", t);
+                    throw new Error(`SDP exchange failed: ${sdpResp.status} ${t}`);
+                }
+
+                callLocation = sdpResp.headers.get("Location"); // may include call id URL :contentReference[oaicite:2]{index=2}
+                const callId = callLocation?.split("/").pop();
+
+
+
+                if (callLocation) log("Call Location:", callLocation);
+
+                const answerSdp = await sdpResp.text();
+                await pc.setRemoteDescription({ type: "answer", sdp: answerSdp });
+
+                await fetch("/realtime/attach", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ callId, ephemId }),
+                });
+
+                connected = true;
+                setStatus("connected");
+                setButtons();
+
+                // 7) (Optional but recommended) session.update for server VAD (open-mic)
+                // WebRTC handles the audio transport; VAD helps the server decide when to respond. :contentReference[oaicite:3]{index=3}
+                if (chkVad.checked) {
+                    safeSend({
+                        type: "session.update",
+                        session: {
+                            turn_detection: { type: "server_vad" },
+                        },
+                    });
+                }
+
+                // 8) Trigger a greeting response (text+audio)
+                // Realtime often needs a response.create to speak proactively. :contentReference[oaicite:4]{index=4}
+                safeSend({
+                    type: "response.create",
+                    response: {
+                        output_modalities: ["audio", "text"],
+                        instructions: "Greet the user briefly and ask how you can help.",
+                    },
+                });
+
+                log("✅ Connected.");
+            }
+
+            async function disconnect() {
+                setStatus("disconnecting...");
+                log("Disconnecting...");
+
+                try {
+                    if (dc) dc.close();
+                    dc = null;
+
+                    if (pc) pc.close();
+                    pc = null;
+
+                    if (micStream) {
+                        micStream.getTracks().forEach(t => t.stop());
+                        micStream = null;
+                    }
+                } finally {
+                    connected = false;
+                    setStatus("disconnected");
+                    setButtons();
+                    log("Disconnected.");
+                }
+            }
+
+            function sendText() {
+                const text = textInput.value.trim();
+                if (!text) return;
+
+                // Add user message
+                safeSend({
+                    type: "conversation.item.create",
+                    item: {
+                        type: "message",
+                        role: "user",
+                        content: [{ type: "input_text", text }],
+                    },
+                });
+
+                // Ask model to respond (audio + text)
+                safeSend({
+                    type: "response.create",
+                    response: {
+                        output_modalities: ["audio", "text"],
+                    },
+                });
+
+                textInput.value = "";
+            }
+
+            // Wire UI
+            btnConnect.addEventListener("click", async () => {
+                try { await connect(); }
+                catch (e) {
+                    log("❌", String(e?.message || e));
+                    console.error(e);
+                    await disconnect().catch(() => { });
+                }
+            });
+
+            btnDisconnect.addEventListener("click", () => disconnect());
+
+            btnSendText.addEventListener("click", sendText);
+            textInput.addEventListener("keydown", (e) => {
+                if (e.key === "Enter") sendText();
+            });
+
+            setButtons();
+        })();
+    </script>
+</body>
+
+</html>

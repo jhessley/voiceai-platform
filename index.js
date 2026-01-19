@@ -25,7 +25,8 @@ const { OpenAI } = require('openai');
 const WebSocket = require('ws');
 const app = express();
 
-const port = 1923;
+const port = process.env.PORT || 1923;
+
 
 
 app.set('trust proxy', 1);
@@ -51,7 +52,7 @@ app.use("/realtime", realtimeRoutes);
 
 // #region Root & Test Routes
 app.get('/', (req, res) => {
-  res.send('Welcome to voice ai app!');
+  res.send('Welcome to TradeWindsApp voice ai app!');
 });
 app.post('/test/endpoint', async (req, res) => {
   const { caller, message } = req.body;

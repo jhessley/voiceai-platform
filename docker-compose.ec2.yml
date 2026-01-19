@@ -1,14 +1,4 @@
 services:
-  api:
-    build: .
-    ports:
-      - "3000:3000"
-    environment:
-      NODE_ENV: production
-      # Put real values in /opt/yourapp/.env on the server
-      # DATABASE_URL: postgres://...
-    command: npm start
-    restart: unless-stopped
   db:
     image: postgres:16.2
     environment:
@@ -17,6 +7,30 @@ services:
       POSTGRES_PASSWORD: voiceai_pw
     volumes:
       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U voiceai -d voiceai"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+    # Do NOT publish 5432 unless you need host access (pgAdmin on EC2 host)
+    # ports:
+    #   - "5432:5432"
+
+  api:
+    build: .
+    ports:
+      - "3001:3000"
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DATABASE_URL: postgres://voiceai:voiceai_pw@db:5432/voiceai
+    command: node index.js
+    depends_on:
+      db:
+        condition: service_healthy
     restart: unless-stopped
 
 volumes:

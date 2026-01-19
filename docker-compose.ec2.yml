@@ -2,11 +2,22 @@ services:
   api:
     build: .
     ports:
-      - "3001:3000"
-    env_file:
-      - .env
+      - "3000:3000"
     environment:
       NODE_ENV: production
-      PORT: 3000
-    command: node index.js
+      # Put real values in /opt/yourapp/.env on the server
+      # DATABASE_URL: postgres://...
+    command: npm start
     restart: unless-stopped
+  db:
+    image: postgres:16.2
+    environment:
+      POSTGRES_DB: voiceai
+      POSTGRES_USER: voiceai
+      POSTGRES_PASSWORD: voiceai_pw
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  pgdata:

@@ -16,7 +16,7 @@ const session = require('express-session');
 const OUTBOUND_FROM = process.env.OUTBOUND_FROM || process.env.TWILIO_NUMBER;
 const PUBLIC_HOSTNAME = process.env.PUBLIC_HOSTNAME;
 const realtimeRoutes = require("./routes/realtime.js");
-const { acceptPhoneCall, buildSessionParts, startControlledCall } = require("./realtime_controller");
+const { acceptPhoneCall, buildSessionParts, startControlledCall } = require("./realtime_controller.js");
 
 
 // DB + Novel factory (NEW)
@@ -52,7 +52,7 @@ app.use("/realtime", realtimeRoutes);
 
 // #region Root & Test Routes
 app.get('/', (req, res) => {
-  res.send('Welcome to voice ai app!');
+  res.send('Welcome to TradeWindsApp voice ai app!');
 });
 app.post('/test/endpoint', async (req, res) => {
   const { caller, message } = req.body;

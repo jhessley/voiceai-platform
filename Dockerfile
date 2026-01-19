@@ -1,15 +1,18 @@
-FROM node:20.11.1-alpine
-
+# ---- base ----
+FROM node:20.11.1-alpine AS base
 WORKDIR /app
 
-# Install dependencies using the lockfile (repeatable)
+# ---- deps (prod deps only) ----
+FROM base AS deps
 COPY package.json package-lock.json ./
 RUN npm ci --omit=dev
 
-# Copy application code into the image
+# ---- runtime ----
+FROM base AS runtime
+ENV NODE_ENV=production
+
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 EXPOSE 3000
-
-ENV NODE_ENV=production
-CMD ["node", "index.js"]
+CMD ["npm", "start"]
